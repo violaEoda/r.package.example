@@ -26,7 +26,7 @@ jobs:
       - name: To check or not to check?
         id: check
         run: |
-          echo "run_r_cmd_check=false" >> $GITHUB_OUTPUT
+          echo "run_r_cmd_check=a" >> $GITHUB_OUTPUT
 
   r-cmd:
     name: R CMD Check 🧬
@@ -34,4 +34,4 @@ jobs:
     # Call a workflow from a given GitHub repository, from a given branch (or tag).
     uses: insightsengineering/r.pkg.template/.github/workflows/build-check-install.yaml@main
     if: >
-      needs.job-setup.outputs.check_out == 'true'
+      needs.job-setup.outputs.check_out == 'a'
