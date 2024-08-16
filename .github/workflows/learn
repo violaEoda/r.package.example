@@ -1,0 +1,10 @@
+name: learn-github-actions
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install dplyr package
+        run: Rscript -e 'install.packages("dplyr")'
+      - name: Use dplyr
+        run: Rscript -e 'library("dplyr"); slice(mtcars, 1)'
