@@ -10,3 +10,5 @@ jobs:
         run: Rscript -e 'install.packages("dplyr")'
       - name: Use dplyr
         run: Rscript -e 'library("dplyr"); slice(mtcars, 1)'
+      - name: Use helper function
+        run: Rscript -e 'join_and(c("Max", "Moritz"))'
