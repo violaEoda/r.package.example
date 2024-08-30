@@ -1,5 +1,11 @@
 name: learn-github-actions
+
 on: [push]
+
+env:
+  # additional flags for `R CMD CHECK`
+  EXTRA_CHECK_FLAGS: "--no-manual --no-vignettes"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,13 +18,30 @@ jobs:
         run: Rscript -e 'library("dplyr"); slice(mtcars, 1)'
       - name: Checkout repo 🛎
         # We're using an official GitHub Action.
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4.1.1
+        with:
+          # Action inputs (arguments/parameters).
+          # In this case we clone the repository to the directory called the same
+          # as the repository name.
+          path: ${{ github.event.repository.name }}
+
+      # Get package name and version from DESCRIPTION so that we'll know
+      # what's the name of the tar.gz file with the built package.
+      # pkgbuild is set as an output which can be accessed by subsequent steps.
+      - name: Get package name 📦
+        id: package-name
+        run: |
+          PKGBUILD="$(Rscript -e 'cat(sprintf("%s_%s.tar.gz",(dcf <- read.dcf("DESCRIPTION"))[,"Package"], dcf[,"Version"]))')"
+          echo "PKGBUILD = $PKGBUILD"
+          echo "pkgbuild=$PKGBUILD" >> $GITHUB_OUTPUT
+        shell: bash
+        working-directory: ${{ github.event.repository.name }}
         
       # Build a package stored in a directory called ${{ github.event.repository.name }}
       # --no-manual --no-build-vignettes because this requires LaTeX.
       - name: Build R package 🏗
         run: |
-          R CMD build --no-manual --no-build-vignettes ${{ github.event.repository.name }}
+          R CMD build ${EXTRA_CHECK_FLAGS} ${{ github.event.repository.name }}
           ls -l
         shell: bash
       - name: Use helper function
