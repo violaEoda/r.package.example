@@ -10,7 +10,10 @@ jobs:
         run: Rscript -e 'install.packages("dplyr")'
       - name: Use dplyr
         run: Rscript -e 'library("dplyr"); slice(mtcars, 1)'
-      
+      - name: Checkout repo 🛎
+        # We're using an official GitHub Action.
+        uses: actions/checkout@v2
+        
       # Build a package stored in a directory called ${{ github.event.repository.name }}
       # --no-manual --no-build-vignettes because this requires LaTeX.
       - name: Build R package 🏗
