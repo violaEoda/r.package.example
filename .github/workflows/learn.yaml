@@ -29,10 +29,13 @@ jobs:
         with:
           working-directory: ${{ github.event.repository.name }}
 
-      - name: Install pkgload if necessary
+      - name: Install pkgload and devtools if necessary
         run: |
           if (!"pkgload" %in% rownames(installed.packages()))
             install.package("pkgload")     
+            
+          if (!"devtools" %in% rownames(installed.packages()))
+            install.package("devtools")     
         shell: Rscript {0}
       - name: Installed packages 📦
         run: sort(rownames(installed.packages()))
