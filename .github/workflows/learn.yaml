@@ -29,7 +29,7 @@ jobs:
         with:
           working-directory: ${{ github.event.repository.name }}
 
-      - name: Install pkgload if necessarx
+      - name: Install pkgload if necessary
         run: |
           if (!"pkgload" %in% rownames(installed.packages()))
             install.package("pkgload")     
@@ -49,7 +49,9 @@ jobs:
           echo "pkgbuild=$PKGBUILD" >> $GITHUB_OUTPUT
         shell: bash
         working-directory: ${{ github.event.repository.name }}
-        
+      
+      - name: Get working directory
+        run: ls
       # Build a package stored in a directory called ${{ github.event.repository.name }}
       # --no-manual --no-build-vignettes because this requires LaTeX.
       - name: Build R package 🏗
