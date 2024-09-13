@@ -63,7 +63,7 @@ jobs:
       - name: Load package 🍭
         run: |
           pkgload::load_all(
-            path = Sys.getenv("PATH")
+            path = Sys.getenv("PATH"),
             export_all = FALSE,
             helpers = FALSE,
             attach_testthat = FALSE
