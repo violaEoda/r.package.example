@@ -32,8 +32,7 @@ jobs:
       - name: Install pkgload and devtools if necessary
         run: |
           if (!"pkgload" %in% rownames(installed.packages()))
-            install.package("pkgload")     
-            
+            install.package("pkgload")
           if (!"devtools" %in% rownames(installed.packages()))
             install.package("devtools")     
         shell: Rscript {0}
