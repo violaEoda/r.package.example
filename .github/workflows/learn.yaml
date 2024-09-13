@@ -29,9 +29,13 @@ jobs:
         with:
           working-directory: ${{ github.event.repository.name }}
 
-      
+      - name: Install pkgload if necessarx
+        run: |
+          if (!"pkgload" %in% rownames(installed.packages()))
+            install.package("pkgload")     
+        shell: Rscript {0}
       - name: Installed packages 📦
-        run: rownames(installed.packages())
+        run: sort(rownames(installed.packages()))
         shell: Rscript {0}
         
       # Get package name and version from DESCRIPTION so that we'll know
@@ -53,5 +57,10 @@ jobs:
           R CMD build ${EXTRA_CHECK_FLAGS} ${{ github.event.repository.name }}
           ls -l
         shell: bash
+
+      - name: Load package 🍭
+        run: pkgload::load_all(export_all = FALSE,helpers = FALSE,attach_testthat = FALSE)
+        shell: Rscript {0}
+        
       - name: Use helper function
         run: Rscript -e 'join_and(c("Max", "Moritz"))'
