@@ -68,9 +68,12 @@ jobs:
             helpers = FALSE,
             attach_testthat = FALSE
           )
+
+          join_and(c("Max", "Moritz"))
         shell: Rscript {0}
         env:
           PATH: ${{ github.event.repository.name }}
         
       - name: Use helper function
+        if: false
         run: Rscript -e 'library(${{ github.event.repository.name }}); join_and(c("Max", "Moritz"))'
