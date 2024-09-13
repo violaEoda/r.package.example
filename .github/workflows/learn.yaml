@@ -73,4 +73,4 @@ jobs:
           PATH: ${{ github.event.repository.name }}
         
       - name: Use helper function
-        run: Rscript -e 'join_and(c("Max", "Moritz"))'
+        run: Rscript -e 'library(${{ github.event.repository.name }}); join_and(c("Max", "Moritz"))'
