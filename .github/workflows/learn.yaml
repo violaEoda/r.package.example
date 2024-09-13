@@ -61,13 +61,8 @@ jobs:
 
       - name: Load package 🍭
         run: |
-          pkgload::load_all(
-            path = Sys.getenv("PATH"),
-            export_all = FALSE,
-            helpers = FALSE,
-            attach_testthat = FALSE
-          )
-          devtools::install(Sys.getenv("PATH"))
+          sort(rownames(installed.packages()))
+          devtools::install(".")
           library(${{ github.event.repository.name }})
           join_and(c("Max", "Moritz"))
         shell: Rscript {0}
