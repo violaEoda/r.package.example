@@ -4,7 +4,7 @@ on: [push]
 
 env:
   # additional flags for `R CMD CHECK`
-  EXTRA_CHECK_FLAGS: "--no-manual --no-vignettes"
+  EXTRA_CHECK_FLAGS: "--no-manual --no-build-vignettes"
 
 jobs:
   build:
