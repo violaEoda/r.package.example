@@ -68,7 +68,8 @@ jobs:
             helpers = FALSE,
             attach_testthat = FALSE
           )
-
+          devtools::install(Sys.getenv("PATH"))
+          library(${{ github.event.repository.name }})
           join_and(c("Max", "Moritz"))
         shell: Rscript {0}
         env:
