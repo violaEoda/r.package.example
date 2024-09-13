@@ -62,6 +62,7 @@ jobs:
       - name: Load package 🍭
         run: |
           sort(rownames(installed.packages()))
+          library(devtools)
           devtools::install(".")
           library(${{ github.event.repository.name }})
           join_and(c("Max", "Moritz"))
